@@ -20,8 +20,6 @@ namespace CodeBase.Hero
         private void Start()
         {
             _camera = Camera.main;
-
-            CameraFollow();
         }
 
         private void Update()
@@ -36,12 +34,9 @@ namespace CodeBase.Hero
 
                 transform.forward = movementVector;
             }
-            movementVector += Physics.gravity;
+            movementVector *= MovementSpeed * Time.deltaTime;
 
-            CharacterController.Move(movementVector * MovementSpeed * Time.deltaTime);
+            CharacterController.Move(movementVector + Physics.gravity * Time.deltaTime);
         }
-
-        private void CameraFollow() => 
-            _camera.GetComponent<CameraFollow>().Follow(gameObject);
     }
 }
