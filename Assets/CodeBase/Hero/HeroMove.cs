@@ -1,4 +1,4 @@
-using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Services.Input;
 using UnityEngine;
 
@@ -10,11 +10,11 @@ namespace CodeBase.Hero
         public float MovementSpeed;
 
         private Camera _camera;
-        private IInputService _inputService;
+        private IInputService _input;
 
         private void Awake()
         {
-            _inputService = Game.InputService;
+            _input = AllServices.Container.Single<IInputService>();
         }
 
         private void Start()
@@ -26,9 +26,9 @@ namespace CodeBase.Hero
         {
             Vector3 movementVector = Vector3.zero;
 
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            if (_input.Axis.sqrMagnitude > Constants.Epsilon)
             {
-                movementVector = _camera.transform.TransformDirection(_inputService.Axis);
+                movementVector = _camera.transform.TransformDirection(_input.Axis);
                 movementVector.y = 0;
                 movementVector.Normalize();
 

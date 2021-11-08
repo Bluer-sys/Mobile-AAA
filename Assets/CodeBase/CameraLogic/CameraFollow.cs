@@ -1,36 +1,39 @@
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+namespace CodeBase.CameraLogic
 {
-    public float RotationAngleX;
-    public float Distance;
-    public float OffsetY;
-
-    [SerializeField] private Transform _following;
-
-    private void LateUpdate()
+    public class CameraFollow : MonoBehaviour
     {
-        if (_following == null)
+        public float RotationAngleX;
+        public float Distance;
+        public float OffsetY;
+
+        [SerializeField] private Transform _following;
+
+        private void LateUpdate()
         {
-            return;
+            if (_following == null)
+            {
+                return;
+            }
+
+            Quaternion rotation = Quaternion.Euler(RotationAngleX, 0, 0);
+
+            Vector3 position = rotation * new Vector3(0, 0, -Distance) + FollowingPointPosition();
+
+            transform.rotation = rotation;
+            transform.position = position;
         }
 
-        Quaternion rotation = Quaternion.Euler(RotationAngleX, 0, 0);
+        public void Follow(GameObject following) =>
+            _following = following.transform;
 
-        Vector3 position = rotation * new Vector3(0, 0, -Distance) + FollowingPointPosition();
+        private Vector3 FollowingPointPosition()
+        {
+            Vector3 followingPosition = _following.position;
+            followingPosition.y += OffsetY;
 
-        transform.rotation = rotation;
-        transform.position = position;
-    }
-
-    public void Follow(GameObject following) => 
-        _following = following.transform;
-
-    private Vector3 FollowingPointPosition()
-    {
-        Vector3 followingPosition = _following.position;
-        followingPosition.y += OffsetY;
-
-        return followingPosition;
+            return followingPosition;
+        }
     }
 }
