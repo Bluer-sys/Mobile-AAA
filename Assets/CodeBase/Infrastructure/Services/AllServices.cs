@@ -1,11 +1,9 @@
-using UnityEngine;
-
 namespace CodeBase.Infrastructure.Services
 {
-    public class AllServices : MonoBehaviour
+    public class AllServices
     {
-        private static AllServices _instance;
-        public static AllServices Container => _instance ?? (_instance = new AllServices()); // Singleton
+        private static AllServices instance;
+        public static AllServices Container => instance ?? (instance = new AllServices()); // Singleton
 
         public void RegisterSingle<TService>(TService implementation) where TService : IService
         {

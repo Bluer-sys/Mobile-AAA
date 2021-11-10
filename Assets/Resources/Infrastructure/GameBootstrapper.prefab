@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451656268604893132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 247.57137, y: -80.70161, z: -9.484544}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b67712c7d3ff0488a69a8d6f8ddda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Curtain: {fileID: 0}
+  CurtainPrefab: {fileID: 1348999074094437372, guid: 024de6dbfb2541e4cb7556e42c8e1f84, type: 3}
