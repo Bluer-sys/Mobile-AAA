@@ -1,6 +1,5 @@
 ﻿using System;
 using CodeBase.Logic;
-using TMPro;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -13,6 +12,7 @@ namespace CodeBase.Enemy
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int Hit = Animator.StringToHash("Hit");
         private static readonly int Die = Animator.StringToHash("Die");
+        private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
 
         private readonly int _idleStateHash = Animator.StringToHash("idle");
         private readonly int _attackStateHash = Animator.StringToHash("attack01");
@@ -29,7 +29,7 @@ namespace CodeBase.Enemy
         private void Awake() => _animator = GetComponent<Animator>();
 
         public void PlayHit() => _animator.SetTrigger(Hit);
-        private void PlayDeath() => _animator.SetTrigger(Die);
+        public void PlayDeath() => _animator.SetTrigger(Die);
 
         public void Move(float speed)
         {
@@ -39,7 +39,9 @@ namespace CodeBase.Enemy
 
         public void StopMoving() => _animator.SetBool(IsMoving, false);
         public void PlayAttack() => _animator.SetTrigger(Attack);
-
+        public void SetIsAttacking(bool isAttacking) => _animator.SetBool(IsAttacking, isAttacking);
+        public bool GetIsAttacking() => _animator.GetBool(IsAttacking);
+        
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
