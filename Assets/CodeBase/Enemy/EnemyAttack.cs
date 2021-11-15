@@ -9,7 +9,7 @@ using UnityEngine;
 namespace CodeBase.Enemy
 {
     [RequireComponent(typeof(EnemyAnimator))]
-    public class Attack : MonoBehaviour
+    public class EnemyAttack : MonoBehaviour
     {
         private const string PlayerLayerName = "Player";
 

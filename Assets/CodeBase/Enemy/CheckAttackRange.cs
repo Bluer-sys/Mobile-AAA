@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(Attack))]
+    [RequireComponent(typeof(EnemyAttack))]
     public class CheckAttackRange : MonoBehaviour
     {
         public TriggerObserver TriggerObserver;
         
-        private Attack _attack;
+        private EnemyAttack enemyAttack;
 
         private void Awake()
         {
-            _attack = GetComponent<Attack>();
+            enemyAttack = GetComponent<EnemyAttack>();
         }
 
         private void Start()
@@ -20,17 +20,17 @@ namespace CodeBase.Enemy
             TriggerObserver.TriggerEnter += TriggerEnter;
             TriggerObserver.TriggerExit += TriggerExit;
 
-            _attack.DisableAttack();
+            enemyAttack.DisableAttack();
         }
 
         private void TriggerEnter(Collider obj)
         {
-            _attack.EnableAttack();
+            enemyAttack.EnableAttack();
         }
 
         private void TriggerExit(Collider obj)
         {
-            _attack.DisableAttack();
+            enemyAttack.DisableAttack();
         }
     }
 }
