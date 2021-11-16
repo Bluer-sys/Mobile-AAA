@@ -14,10 +14,10 @@ namespace CodeBase.Enemy
         private static readonly int Die = Animator.StringToHash("Die");
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
 
-        private readonly int _idleStateHash = Animator.StringToHash("idle");
-        private readonly int _attackStateHash = Animator.StringToHash("attack01");
+        private readonly int _idleStateHash = Animator.StringToHash("Idle");
+        private readonly int _attackStateHash = Animator.StringToHash("Attack01");
         private readonly int _walkingStateHash = Animator.StringToHash("Move");
-        private readonly int _deathStateHash = Animator.StringToHash("die");
+        private readonly int _deathStateHash = Animator.StringToHash("Die");
 
         private Animator _animator;
 

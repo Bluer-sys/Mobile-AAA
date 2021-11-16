@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5600679293989681597, guid: 4f722452adc927848b833181c44d4c80, type: 3}
+      propertyPath: MonsterTypeId
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7663102623687107337, guid: 4f722452adc927848b833181c44d4c80, type: 3}
       propertyPath: m_RootOrder
       value: 3

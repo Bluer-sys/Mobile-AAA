@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using CodeBase.Hero;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
+﻿using System.Linq;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -21,18 +17,17 @@ namespace CodeBase.Enemy
         public int Damage = 10;
 
         private EnemyAnimator _animator;
-        private IGameFactory _gameFactory;
         private Transform _heroTransform;
         private float _currentAttackCooldown;
         private int _layerMask;
         private bool _attackIsActive;
 
+        public void Construct(Transform heroTransform) =>
+            _heroTransform = heroTransform;
+
         private void Awake()
         {
             _animator = GetComponent<EnemyAnimator>();
-            
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-            _gameFactory.HeroCreated += OnHeroCreated;
 
             _layerMask = 1 << LayerMask.NameToLayer(PlayerLayerName);
         }
@@ -74,11 +69,6 @@ namespace CodeBase.Enemy
             return hitsCount > 0;
         }
 
-        private void OnDestroy()
-        {
-            _gameFactory.HeroCreated -= OnHeroCreated;
-        }
-
         public void EnableAttack() => 
             _attackIsActive = true;
 
@@ -98,8 +88,5 @@ namespace CodeBase.Enemy
 
         private void DecreaseCurrentCooldown() => 
             _currentAttackCooldown -= Time.deltaTime;
-
-        private void OnHeroCreated() => 
-            _heroTransform = _gameFactory.HeroGameObject.transform;
     }
 }
