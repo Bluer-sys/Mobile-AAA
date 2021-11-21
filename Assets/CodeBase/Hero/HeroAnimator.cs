@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroAnimator : MonoBehaviour, IAnimationStateReader
+    public class HeroAnimator : MonoBehaviour, IHero, IAnimationStateReader
     {
         private static readonly int MoveHash = Animator.StringToHash("Walking");
         private static readonly int AttackHash = Animator.StringToHash("AttackNormal");

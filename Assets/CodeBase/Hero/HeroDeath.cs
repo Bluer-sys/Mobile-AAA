@@ -7,7 +7,7 @@ namespace CodeBase.Hero
     [RequireComponent(typeof(HeroMove))]
     [RequireComponent(typeof(HeroAttack))]
     [RequireComponent(typeof(HeroAnimator))]
-    public class HeroDeath : MonoBehaviour
+    public class HeroDeath : MonoBehaviour, IHero
     {
         public ParticleSystem DeathFX;
 

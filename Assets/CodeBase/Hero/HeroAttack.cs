@@ -10,7 +10,7 @@ using UnityEngine;
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(HeroAnimator), typeof(CharacterController))]
-    public class HeroAttack : MonoBehaviour, ISavedProgressReader
+    public class HeroAttack : MonoBehaviour, IHero, ISavedProgressReader
     {
         private const string HittableLayer = "Hittable";
         

@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 6573276039690250080}
   - component: {fileID: 5186074521695895453}
   - component: {fileID: 1861496497531326800}
+  - component: {fileID: 38457034386222060}
   m_Layer: 16
   m_Name: Loot
   m_TagString: Untagged
@@ -159,6 +160,19 @@ MonoBehaviour:
   Skull: {fileID: 1148823120736010250}
   PickupFX: {fileID: 19800000, guid: 82a91e9f8a3879a4ca7adc4a52c5d745, type: 3}
   LootText: {fileID: 3628159019351998022}
+--- !u!114 &38457034386222060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7880382966684822008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28556e3017564bd48a94637d1ab1e1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 
 --- !u!1001 &5236617418369292326
 PrefabInstance:
   m_ObjectHideFlags: 0

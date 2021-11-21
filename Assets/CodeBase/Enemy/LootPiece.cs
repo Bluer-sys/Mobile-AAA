@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using CodeBase.Data;
+using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Enemy
 {
-    public class LootPiece : MonoBehaviour
+    public class LootPiece : MonoBehaviour, ISavedProgress
     {
         public GameObject PickupPopup;
         public GameObject Skull;
@@ -46,7 +50,7 @@ namespace CodeBase.Enemy
             StartCoroutine(StartDestroyTimer());
         }
 
-        private void UpdateWorldData() => 
+        private void UpdateWorldData() =>
             _worldData.LootData.Collect(_loot);
 
         private void HideSkull() => 
@@ -61,10 +65,41 @@ namespace CodeBase.Enemy
             PickupPopup.SetActive(true);
         }
 
+        public void LoadProgress(PlayerProgress progress)
+        {
+        }
+
+        public void SaveProgress(PlayerProgress progress)
+        {
+            if(_picked)
+                return;
+
+            LootOnLevel currentLevelLoot = GetLootDataOnLevel(progress) 
+                                           ?? CreateCurrentLevelData(progress);
+
+            AddLootPieceToData(currentLevelLoot);
+        }
+
         private IEnumerator StartDestroyTimer()
         {
             yield return new WaitForSeconds(2.0f);
             Destroy(gameObject);
         }
+
+        private LootOnLevel CreateCurrentLevelData(PlayerProgress progress)
+        {
+            progress.WorldData.LootOnLevel.Add(new LootOnLevel(CurrentSceneName()));
+            return GetLootDataOnLevel(progress);
+        }
+
+        private void AddLootPieceToData(LootOnLevel currentLevelLoot) =>
+            currentLevelLoot.LootsPiecesDatas.Add(new LootPiecesData(GetComponent<UniqueId>().Id, _loot,
+                transform.position.AsVectorData()));
+
+        private LootOnLevel GetLootDataOnLevel(PlayerProgress progress) =>
+            progress.WorldData.LootOnLevel.FirstOrDefault(loot => loot.Level == CurrentSceneName());
+
+        private string CurrentSceneName() =>
+            SceneManager.GetActiveScene().name;
     }
 }

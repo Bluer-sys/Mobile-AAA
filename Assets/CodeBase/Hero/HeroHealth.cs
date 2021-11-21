@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(HeroAnimator))]
-    public class HeroHealth : MonoBehaviour, ISavedProgress, IHealth
+    public class HeroHealth : MonoBehaviour, IHero, ISavedProgress, IHealth
     {
         private HeroAnimator _animator;
         private State _state;

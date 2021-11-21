@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(CharacterController))]
-    public class HeroMove : MonoBehaviour, ISavedProgress
+    public class HeroMove : MonoBehaviour, IHero, ISavedProgress
     {
         public float MovementSpeed;
 
@@ -41,6 +41,7 @@ namespace CodeBase.Hero
 
                 transform.forward = movementVector;
             }
+
             movementVector *= MovementSpeed * Time.deltaTime;
 
             _characterController.Move(movementVector + Physics.gravity * Time.deltaTime);

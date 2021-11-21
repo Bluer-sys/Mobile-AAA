@@ -1,10 +1,14 @@
-﻿using CodeBase.CameraLogic;
+﻿using System.Linq;
+using CodeBase.CameraLogic;
+using CodeBase.Data;
+using CodeBase.Enemy;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -12,6 +16,7 @@ namespace CodeBase.Infrastructure.States
     {
         private const string PlayerInitialPointTag = "PlayerInitialPoint";
         private const string EnemySpawnerTag = "EnemySpawner";
+        private const string SaveTriggerTag = "SaveTrigger";
 
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
@@ -59,11 +64,33 @@ namespace CodeBase.Infrastructure.States
         private void InitGameWorld()
         {
             InitSpawners();
-            
+            InitSaveTriggers();
+            InitLoot();
+
             GameObject hero = InitHero();
             InitHud(hero);
 
             CameraFollow(hero);
+        }
+
+        private void InitLoot()
+        {
+            LootOnLevel lootPiecesOnLevel =
+                _progressService.Progress.WorldData.LootOnLevel.FirstOrDefault(loot =>
+                    loot.Level == SceneManager.GetActiveScene().name);
+
+            if (lootPiecesOnLevel != null)
+            {
+                foreach (var currentLootPiece in lootPiecesOnLevel.LootsPiecesDatas)
+                {
+                    LootPiece loadedLoot = _gameFactory.CreateLoot();
+
+                    loadedLoot.Initialize(currentLootPiece.Loot);
+                    loadedLoot.transform.position = currentLootPiece.Position.AsUnityVector();
+                    loadedLoot.GetComponent<UniqueId>().Id = currentLootPiece.LootId;
+                }
+                lootPiecesOnLevel.LootsPiecesDatas.Clear();
+            }
         }
 
         private void InitSpawners()
@@ -72,6 +99,15 @@ namespace CodeBase.Infrastructure.States
             {
                 EnemySpawner spawner = spawnerObject.GetComponent<EnemySpawner>();
                 _gameFactory.Register(spawner);
+            }
+        }
+
+        private void InitSaveTriggers()
+        {
+            foreach (var saveTriggerObject in GameObject.FindGameObjectsWithTag(SaveTriggerTag))
+            {
+                SaveTrigger saveTrigger = saveTriggerObject.GetComponent<SaveTrigger>();
+                _gameFactory.Register(saveTrigger);
             }
         }
 
@@ -85,7 +121,6 @@ namespace CodeBase.Infrastructure.States
 
         private GameObject InitHero() => 
             _gameFactory.CreateHero(initialPoint: GameObject.FindWithTag(PlayerInitialPointTag));
-
 
         private void CameraFollow(GameObject hero)
         {
