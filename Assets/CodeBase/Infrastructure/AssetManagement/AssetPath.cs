@@ -5,5 +5,6 @@
         public const string Hero = "Hero/Hero";
         public const string Hud = "Hud/Hud";
         public const string Loot = "Loot/Loot";
+        public const string Spawner = "Enemies/SpawnPoint";
     }
 }

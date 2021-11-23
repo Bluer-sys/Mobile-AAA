@@ -6,7 +6,6 @@ TagManager:
   tags:
   - PlayerInitialPoint
   - FxTemporaire
-  - EnemySpawner
   - SaveTrigger
   layers:
   - Default

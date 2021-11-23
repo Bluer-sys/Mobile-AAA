@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -23,7 +25,7 @@ namespace CodeBase.Infrastructure.Factory
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
         public GameObject HeroGameObject { get; private set; }
-        
+
         public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService random, IPersistentProgressService progressService)
         {
             _assets = assets;
@@ -84,6 +86,17 @@ namespace CodeBase.Infrastructure.Factory
             lootPiece.Construct(_progressService.Progress.WorldData);
             
             return lootPiece;
+        }
+
+        public void CreateSpawner(Vector3Data at, string spawnerId, MonsterTypeId monsterTypeId)
+        {
+            SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at.AsUnityVector())
+                .GetComponent<SpawnPoint>();
+
+            spawner.Construct(this);
+            spawner.Id = spawnerId;
+            spawner.MonsterTypeId = monsterTypeId;
+            
         }
 
         public void CleanUp()

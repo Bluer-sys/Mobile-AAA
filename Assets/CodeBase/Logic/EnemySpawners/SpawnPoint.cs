@@ -1,34 +1,30 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
 using UnityEngine;
 
-namespace CodeBase.Logic
+namespace CodeBase.Logic.EnemySpawners
 {
-    [RequireComponent(typeof(UniqueId))]
-    public class EnemySpawner : MonoBehaviour, ISavedProgress
+    public class SpawnPoint : MonoBehaviour, ISavedProgress
     {
         public MonsterTypeId MonsterTypeId;
 
         [SerializeField] private bool _slain;
-        
-        private string _id;
+        public string Id { get; set; }
+
         private IGameFactory _factory;
         private EnemyDeath _enemyDeath;
 
-        private void Awake()
+        public void Construct(IGameFactory factory)
         {
-            _id = GetComponent<UniqueId>().Id;
-            _factory = AllServices.Container.Single<IGameFactory>();
+            _factory = factory;
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (progress.KillData.ClearedSpawners.Contains(_id))
+            if (progress.KillData.ClearedSpawners.Contains(Id))
             {
                 _slain = true;
             }
@@ -41,23 +37,23 @@ namespace CodeBase.Logic
         private void Spawn()
         {
             GameObject monster = _factory.CreateMonster(MonsterTypeId, transform);
-            
+
             _enemyDeath = monster.GetComponent<EnemyDeath>();
             _enemyDeath.Happened += Slay;
         }
 
         private void Slay()
         {
-            if (_enemyDeath != null) 
+            if (_enemyDeath != null)
                 _enemyDeath.Happened -= Slay;
-            
+
             _slain = true;
         }
 
         public void SaveProgress(PlayerProgress progress)
         {
-            if(_slain)
-                progress.KillData.ClearedSpawners.Add(_id);
+            if (_slain)
+                progress.KillData.ClearedSpawners.Add(Id);
         }
     }
 }
