@@ -10,5 +10,6 @@ namespace CodeBase.StaticData
         public string LevelKey;
 
         public List<EnemySpawnerData> EnemySpawners;
+        public List<SaveTriggerData> SaveTriggers;
     }
 }

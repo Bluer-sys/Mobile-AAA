@@ -4,8 +4,10 @@ using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
+using CodeBase.Logic.SaveTriggers;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -20,18 +22,21 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IStaticDataService _staticData;
         private readonly IRandomService _random;
         private readonly IPersistentProgressService _progressService;
-
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        private readonly ISaveLoadService _saveLoadService;
+        private readonly IPersistentProgressWatchersService _progressWatchersService;
 
         public GameObject HeroGameObject { get; private set; }
 
-        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService random, IPersistentProgressService progressService)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService random,
+            IPersistentProgressService progressService, IPersistentProgressWatchersService progressWatchersService,
+            ISaveLoadService saveLoadService)
         {
             _assets = assets;
             _staticData = staticData;
             _random = random;
             _progressService = progressService;
+            _progressWatchersService = progressWatchersService;
+            _saveLoadService = saveLoadService;
         }
 
         public GameObject CreateHero(GameObject initialPoint)
@@ -96,13 +101,19 @@ namespace CodeBase.Infrastructure.Factory
             spawner.Construct(this);
             spawner.Id = spawnerId;
             spawner.MonsterTypeId = monsterTypeId;
-            
         }
 
-        public void CleanUp()
+        public void CreateSaveTrigger(string saveTriggerId, Vector3Data at, Vector3Data size, Vector3Data center)
         {
-            ProgressReaders.Clear();
-            ProgressWriters.Clear();
+            SaveTrigger trigger = InstantiateRegistered(AssetPath.SaveTrigger, at.AsUnityVector())
+                .GetComponent<SaveTrigger>();
+
+            trigger.Construct(_saveLoadService);
+            trigger.Id = saveTriggerId;
+
+            BoxCollider collider = trigger.GetComponent<BoxCollider>();
+            collider.size = size.AsUnityVector();
+            collider.center = center.AsUnityVector();
         }
 
         private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
@@ -131,10 +142,10 @@ namespace CodeBase.Infrastructure.Factory
         {
             if (progressReader is ISavedProgress progressWriter)
             {
-                ProgressWriters.Add(progressWriter);
+                _progressWatchersService.ProgressWriters.Add(progressWriter);
             }
 
-            ProgressReaders.Add(progressReader);
+            _progressWatchersService.ProgressReaders.Add(progressReader);
         }
     }
 }

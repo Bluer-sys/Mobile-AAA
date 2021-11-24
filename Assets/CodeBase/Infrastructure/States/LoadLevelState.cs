@@ -6,6 +6,7 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.SaveTriggers;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -16,30 +17,30 @@ namespace CodeBase.Infrastructure.States
     public class LoadLevelState : IPayloadedState<string>
     {
         private const string PlayerInitialPointTag = "PlayerInitialPoint";
-        private const string EnemySpawnerTag = "EnemySpawner";
-        private const string SaveTriggerTag = "SaveTrigger";
 
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;
-        private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
+        private readonly IPersistentProgressWatchersService _progressWatchersService;
+        private readonly IGameFactory _gameFactory;
 
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
+        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IPersistentProgressService progressService, IStaticDataService staticData, IPersistentProgressWatchersService progressWatchersService, IGameFactory gameFactory)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _curtain = curtain;
-            _gameFactory = gameFactory;
             _progressService = progressService;
             _staticData = staticData;
+            _progressWatchersService = progressWatchersService;
+            _gameFactory = gameFactory;
         }
 
         public void Enter(string sceneName)
         {
             _curtain.Show();
-            _gameFactory.CleanUp();
+            _progressWatchersService.CleanUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -58,7 +59,7 @@ namespace CodeBase.Infrastructure.States
 
         private void InformProgressReaders()
         {
-            foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+            foreach (ISavedProgressReader progressReader in _progressWatchersService.ProgressReaders)
             {
                 progressReader.LoadProgress(_progressService.Progress);
             }
@@ -109,10 +110,12 @@ namespace CodeBase.Infrastructure.States
 
         private void InitSaveTriggers()
         {
-            foreach (var saveTriggerObject in GameObject.FindGameObjectsWithTag(SaveTriggerTag))
+            string sceneKey = SceneManager.GetActiveScene().name;
+            var levelData = _staticData.ForLevel(sceneKey);
+
+            foreach (var triggerData in levelData.SaveTriggers)
             {
-                SaveTrigger saveTrigger = saveTriggerObject.GetComponent<SaveTrigger>();
-                _gameFactory.Register(saveTrigger);
+                _gameFactory.CreateSaveTrigger(triggerData.Id, triggerData.Position, triggerData.Size, triggerData.Center);
             }
         }
 

@@ -10,17 +10,17 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
         private const string ProgressKey = "Progress";
 
         private readonly IPersistentProgressService _playerProgress;
-        private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressWatchersService _progressWatchersService;
 
-        public SaveLoadService(IPersistentProgressService playerProgress, IGameFactory gameFactory)
+        public SaveLoadService(IPersistentProgressService playerProgress, IPersistentProgressWatchersService progressWatchersService)
         {
             _playerProgress = playerProgress;
-            _gameFactory = gameFactory;
+            _progressWatchersService = progressWatchersService;
         }
 
         public void SaveProgress()
         {
-            foreach (ISavedProgress progressWriter in _gameFactory.ProgressWriters)
+            foreach (ISavedProgress progressWriter in _progressWatchersService.ProgressWriters)
             {
                 progressWriter.SaveProgress(_playerProgress.Progress);
             }
