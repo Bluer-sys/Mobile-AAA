@@ -4,8 +4,10 @@ using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
+using CodeBase.UI.Services.Factory;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -20,7 +22,7 @@ namespace CodeBase.Infrastructure.States
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, _sceneLoader, services),
                 [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IPersistentProgressService>(), services.Single<ISaveLoadService>()),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, _sceneLoader, curtain, services.Single<IPersistentProgressService>(), services.Single<IStaticDataService>(), services.Single<IPersistentProgressWatchersService>(), services.Single<IGameFactory>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, _sceneLoader, curtain, services.Single<IPersistentProgressService>(), services.Single<IStaticDataService>(), services.Single<IPersistentProgressWatchersService>(), services.Single<IGameFactory>(), services.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

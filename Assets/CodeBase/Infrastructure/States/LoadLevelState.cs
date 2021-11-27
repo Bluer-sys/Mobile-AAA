@@ -5,10 +5,13 @@ using CodeBase.Enemy;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.Logic.SaveTriggers;
 using CodeBase.StaticData;
 using CodeBase.UI;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,8 +28,9 @@ namespace CodeBase.Infrastructure.States
         private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressWatchersService _progressWatchersService;
         private readonly IGameFactory _gameFactory;
+        private readonly IUIFactory _uiFactory;
 
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IPersistentProgressService progressService, IStaticDataService staticData, IPersistentProgressWatchersService progressWatchersService, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IPersistentProgressService progressService, IStaticDataService staticData, IPersistentProgressWatchersService progressWatchersService, IGameFactory gameFactory, IUIFactory uiFactory)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -35,6 +39,7 @@ namespace CodeBase.Infrastructure.States
             _staticData = staticData;
             _progressWatchersService = progressWatchersService;
             _gameFactory = gameFactory;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -51,6 +56,7 @@ namespace CodeBase.Infrastructure.States
 
         private void OnLoaded()
         {
+            InitUIRoot();
             InitGameWorld();
             InformProgressReaders();
 
@@ -63,6 +69,11 @@ namespace CodeBase.Infrastructure.States
             {
                 progressReader.LoadProgress(_progressService.Progress);
             }
+        }
+
+        private void InitUIRoot()
+        {
+            _uiFactory.CreateUIRoot();
         }
 
         private void InitGameWorld()

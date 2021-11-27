@@ -1,15 +1,16 @@
-using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Logic.SaveTriggers;
 using CodeBase.StaticData;
-using CodeBase.UI;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -24,12 +25,13 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly IPersistentProgressWatchersService _progressWatchersService;
+        private readonly IWindowService _windowService;
 
         public GameObject HeroGameObject { get; private set; }
 
         public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService random,
             IPersistentProgressService progressService, IPersistentProgressWatchersService progressWatchersService,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, IWindowService windowService)
         {
             _assets = assets;
             _staticData = staticData;
@@ -37,6 +39,7 @@ namespace CodeBase.Infrastructure.Factory
             _progressService = progressService;
             _progressWatchersService = progressWatchersService;
             _saveLoadService = saveLoadService;
+            _windowService = windowService;
         }
 
         public GameObject CreateHero(GameObject initialPoint)
@@ -52,6 +55,11 @@ namespace CodeBase.Infrastructure.Factory
             
             hud.GetComponentInChildren<LootCounter>()
                 .Construct(_progressService.Progress.WorldData);
+
+            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
+            {
+                openWindowButton.Construct(_windowService);
+            }
             
             return hud;
         }
