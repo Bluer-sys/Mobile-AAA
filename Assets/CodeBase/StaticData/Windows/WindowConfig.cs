@@ -1,6 +1,6 @@
 ﻿using System;
-using CodeBase.UI;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.UIWindows;
 
 namespace CodeBase.StaticData.Windows
 {

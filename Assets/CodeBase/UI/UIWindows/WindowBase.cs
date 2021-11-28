@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI
+namespace CodeBase.UI.UIWindows
 {
     public abstract class WindowBase : MonoBehaviour
     {

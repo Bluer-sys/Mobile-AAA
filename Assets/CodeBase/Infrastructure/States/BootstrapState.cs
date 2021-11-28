@@ -1,11 +1,11 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
-using CodeBase.StaticData;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
@@ -43,7 +43,8 @@ namespace CodeBase.Infrastructure.States
 
         private void RegisterServices()
         {
-            RegisterStaticData();
+            RegisterStaticDataService();
+            RegisterAdsService();
             
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IRandomService>(new RandomService());
@@ -53,7 +54,7 @@ namespace CodeBase.Infrastructure.States
 
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IPersistentProgressWatchersService>()));
 
-            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>(), _services.Single<IPersistentProgressService>()));
+            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>(), _services.Single<IPersistentProgressService>(), _services.Single<IAdsService>()));
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
 
             _services.RegisterSingle<IGameFactory>(new GameFactory(
@@ -66,11 +67,18 @@ namespace CodeBase.Infrastructure.States
                 _services.Single<IWindowService>()));
         }
 
-        private void RegisterStaticData()
+        private void RegisterStaticDataService()
         {
-            IStaticDataService staticData = new StaticDataService();
-            staticData.Load();
-            _services.RegisterSingle(staticData);
+            IStaticDataService staticDataService = new StaticDataService();
+            staticDataService.Load();
+            _services.RegisterSingle(staticDataService);
+        }
+
+        private void RegisterAdsService()
+        {
+            IAdsService adsService = new AdsService();
+            adsService.Initialize();
+            _services.RegisterSingle(adsService);
         }
 
         private static IInputService InputService()

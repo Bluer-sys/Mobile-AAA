@@ -15,5 +15,12 @@ namespace CodeBase.Data
             
             Changed?.Invoke();
         }
+        
+        public void Collect(int value)
+        {
+            Collected += value;
+            
+            Changed?.Invoke();
+        }
     }
 }
