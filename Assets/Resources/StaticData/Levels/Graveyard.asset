@@ -38,7 +38,7 @@ MonoBehaviour:
       Z: 1
     Position:
       X: 2.9469013
-      Y: 1.8215752
+      Y: 1.1355743
       Z: -8.771637
   - Id: Main_29d72ae1-c0c5-441d-a768-06adda00568c
     Center:
@@ -53,3 +53,4 @@ MonoBehaviour:
       X: 9.147902
       Y: 1.8215752
       Z: 4.2883625
+  HeroInitialPosition: {x: 5.22, y: 1.719, z: -13.31}

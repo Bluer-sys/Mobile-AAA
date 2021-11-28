@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec4b89c2903144c790a14746a192f5b1, type: 3}
+  m_Name: Dungeon
+  m_EditorClassIdentifier: 
+  LevelKey: Dungeon
+  EnemySpawners:
+  - Id: Dungeon_dedb5ae9-f223-4a3e-824b-464ba12345ab
+    MonsterTypeId: 10
+    Position:
+      X: -6.08
+      Y: 0.0000038146973
+      Z: 10.07
+  - Id: Dungeon_85695b89-d4f3-49e4-ae83-5f03abb53c1a
+    MonsterTypeId: 0
+    Position:
+      X: 4.42
+      Y: 0.0000038146973
+      Z: 3.3099995
+  - Id: Dungeon_99b51b88-733e-4766-a513-745335bd3409
+    MonsterTypeId: 0
+    Position:
+      X: -12.039999
+      Y: 0.0000038146973
+      Z: -7.029999
+  - Id: Main_e5a9e205-5706-45e7-bc82-ddc4eb08d0f6
+    MonsterTypeId: 0
+    Position:
+      X: 2.04
+      Y: 0.0000023841858
+      Z: 9.37
+  - Id: Dungeon_43a68b39-df37-4650-90a9-faf75accc9ca
+    MonsterTypeId: 0
+    Position:
+      X: 4.42
+      Y: 0.0000038146973
+      Z: -4.959999
+  - Id: Dungeon_a12d9503-e119-47b2-b0d1-c62603f75dbc
+    MonsterTypeId: 0
+    Position:
+      X: -3.9299998
+      Y: 0.0000038146973
+      Z: -4.959999
+  SaveTriggers:
+  - Id: Dungeon_711604c6-8612-4f6f-8969-efc8d0bcb627
+    Center:
+      X: 0
+      Y: 0
+      Z: 0
+    Size:
+      X: 3.39
+      Y: 1.3
+      Z: 1
+    Position:
+      X: 12.027
+      Y: 1.117
+      Z: 3.363903
+  HeroInitialPosition: {x: 5.22, y: 1.719, z: -13.31}

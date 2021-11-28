@@ -11,5 +11,7 @@ namespace CodeBase.StaticData
 
         public List<EnemySpawnerData> EnemySpawners;
         public List<SaveTriggerData> SaveTriggers;
+
+        public Vector3 HeroInitialPosition;
     }
 }

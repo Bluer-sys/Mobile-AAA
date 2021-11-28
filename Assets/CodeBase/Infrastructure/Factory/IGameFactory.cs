@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -11,7 +9,7 @@ namespace CodeBase.Infrastructure.Factory
 {
     public interface IGameFactory : IService
     {
-        GameObject CreateHero(GameObject initialPoint);
+        GameObject CreateHero(Vector3 initialPoint);
         GameObject CreateHud();
         GameObject CreateMonster(MonsterTypeId typeId, Transform parent);
         LootPiece CreateLoot();
