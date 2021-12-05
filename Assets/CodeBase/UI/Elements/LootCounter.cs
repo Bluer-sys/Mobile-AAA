@@ -18,6 +18,7 @@ namespace CodeBase.UI.Elements
 
         private void Start()
         {
+            //Возможна проблема из-за Addressables с пропуском одного кадра в InstantiateAsync (nullRef - вызывается Start до Construct)
             UpdateCounter();
         }
 

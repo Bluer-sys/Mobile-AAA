@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using UnityEngine;
@@ -37,9 +36,9 @@ namespace CodeBase.Enemy
             _maxLoot = max;
         }
 
-        private void SpawnLoot()
+        private async void SpawnLoot()
         {
-            LootPiece loot = _factory.CreateLoot();
+            LootPiece loot = await _factory.CreateLoot();
             loot.transform.position = transform.position;
 
             Loot lootItem = new Loot(_random.Next(_minLoot, _maxLoot));

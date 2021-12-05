@@ -3,7 +3,6 @@ using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Hero
 {

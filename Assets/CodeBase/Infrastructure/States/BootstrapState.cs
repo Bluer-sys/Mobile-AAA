@@ -49,23 +49,32 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IGameStateMachine>(_gameStateMachine);
             _services.RegisterSingle<IRandomService>(new RandomService());
-            _services.RegisterSingle<IAssets>(new AssetProvider());
+            
+            RegisterAssetProvider();
+
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IPersistentProgressWatchersService>(new PersistentProgressWatchersService());
 
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IPersistentProgressWatchersService>()));
 
-            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>(), _services.Single<IPersistentProgressService>(), _services.Single<IAdsService>()));
+            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IStaticDataService>(), _services.Single<IPersistentProgressService>(), _services.Single<IAdsService>()));
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
 
             _services.RegisterSingle<IGameFactory>(new GameFactory(
-                _services.Single<IAssets>(), 
+                _services.Single<IAssetProvider>(), 
                 _services.Single<IStaticDataService>(), 
                 _services.Single<IRandomService>(), 
                 _services.Single<IPersistentProgressService>(),
                 _services.Single<IPersistentProgressWatchersService>(),
                 _services.Single<ISaveLoadService>(),
                 _services.Single<IWindowService>()));
+        }
+
+        private void RegisterAssetProvider()
+        {
+            IAssetProvider assetProvider = new AssetProvider();
+            assetProvider.Initialize();
+            _services.RegisterSingle(assetProvider);
         }
 
         private void RegisterStaticDataService()

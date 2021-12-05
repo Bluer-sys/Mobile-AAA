@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
+﻿using System.Threading.Tasks;
+using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -11,24 +12,25 @@ namespace CodeBase.UI.Services.Factory
 {
     public class UIFactory : IUIFactory
     {
-        private readonly IAssets _assets;
+        private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressService _persistentProgressService;
         private readonly IAdsService _adsService;
 
         private Transform _uiRoot;
 
-        public UIFactory(IAssets assets, IStaticDataService staticData, IPersistentProgressService persistentProgressService, IAdsService adsService)
+        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData, IPersistentProgressService persistentProgressService, IAdsService adsService)
         {
-            _assets = assets;
+            _assetProvider = assetProvider;
             _staticData = staticData;
             _persistentProgressService = persistentProgressService;
             _adsService = adsService;
         }
 
-        public void CreateUIRoot()
-        { 
-            _uiRoot = _assets.Instantiate(AssetPath.UIRoot).transform;
+        public async Task CreateUIRoot()
+        {
+            GameObject uiRootInstance = await _assetProvider.Instantiate(AssetAddress.UIRoot);
+            _uiRoot = uiRootInstance.transform;
         }
 
         public void CreateShop()

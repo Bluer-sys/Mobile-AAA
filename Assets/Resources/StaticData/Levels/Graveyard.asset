@@ -26,6 +26,12 @@ MonoBehaviour:
       X: -11.51
       Y: 0
       Z: -6.619999
+  - Id: Main_aa10978b-d743-41ae-857d-e11343a8d193
+    MonsterTypeId: 0
+    Position:
+      X: -9.163099
+      Y: 0
+      Z: -14.010002
   SaveTriggers:
   - Id: Main_c117f7eb-6001-4b18-b7c6-faf6e9e9e176
     Center:

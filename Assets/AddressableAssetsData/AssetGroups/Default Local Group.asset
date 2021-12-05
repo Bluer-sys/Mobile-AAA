@@ -16,7 +16,39 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: b9e035d15cd319349b5c3fa1d76dc12e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: fef8ee76ba818f84b81b11da6bda5ddf
+    m_Address: Golem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7cd1ed7bb8d15784e98fd04fa94f431b
+    m_Address: Lich
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d587ba2fd38b20449986c007d26d2b8a
+    m_Address: Loot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4f722452adc927848b833181c44d4c80
+    m_Address: SpawnPoint
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 74b420e131f9a0341b6ca4078b939d8c
+    m_Address: Hud
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 181862a89f60d7a459002f9870860ad4
+    m_Address: Hero
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 73d46628ac088fb43ba5b3cb69cb8db3
+    m_Address: SaveTrigger
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cc353d9cff6e931408d17b6de6d72591
+    m_Address: UIRoot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a1fc61547cd5d844a9d22f1a296cbb06, type: 2}
   m_SchemaSet:
