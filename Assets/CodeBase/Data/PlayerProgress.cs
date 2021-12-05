@@ -10,6 +10,7 @@ namespace CodeBase.Data
         public Stats HeroStats;
         public KillData KillData;
         public ActivatedSaveTriggersData ActivatedSaveTriggersData;
+        public ActiveLevelTransfersData ActiveLevelTransfersData;
 
         public PlayerProgress(string initialLevel)
         {
@@ -18,6 +19,7 @@ namespace CodeBase.Data
             HeroStats = new Stats();
             KillData = new KillData();
             ActivatedSaveTriggersData = new ActivatedSaveTriggersData();
+            ActiveLevelTransfersData = new ActiveLevelTransfersData();
         }
     }
 }

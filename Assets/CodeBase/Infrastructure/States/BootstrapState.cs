@@ -67,7 +67,8 @@ namespace CodeBase.Infrastructure.States
                 _services.Single<IPersistentProgressService>(),
                 _services.Single<IPersistentProgressWatchersService>(),
                 _services.Single<ISaveLoadService>(),
-                _services.Single<IWindowService>()));
+                _services.Single<IWindowService>(),
+                _services.Single<IGameStateMachine>()));
         }
 
         private void RegisterAssetProvider()

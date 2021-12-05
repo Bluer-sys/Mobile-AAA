@@ -51,7 +51,7 @@ namespace CodeBase.Logic.SaveTriggers
         
         public void LoadProgress(PlayerProgress progress)
         {
-            if (progress.ActivatedSaveTriggersData.triggersId.Contains(Id))
+            if (progress.ActivatedSaveTriggersData.TriggersId.Contains(Id))
             {
                 _checked = true;
                 gameObject.SetActive(false);
@@ -61,7 +61,7 @@ namespace CodeBase.Logic.SaveTriggers
         public void SaveProgress(PlayerProgress progress)
         {
             if (_checked)
-                progress.ActivatedSaveTriggersData.triggersId.Add(Id);
+                progress.ActivatedSaveTriggersData.TriggersId.Add(Id);
         }
     }
 }

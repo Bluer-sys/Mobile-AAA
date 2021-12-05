@@ -1,6 +1,9 @@
-﻿using CodeBase.Data;
+﻿using System.Linq;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.StaticData;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -14,13 +17,15 @@ namespace CodeBase.Infrastructure.States
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
+        private readonly IStaticDataService _staticData;
 
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadService, IStaticDataService staticData)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
+            _staticData = staticData;
         }
 
         public void Enter()
@@ -47,10 +52,23 @@ namespace CodeBase.Infrastructure.States
             progress.HeroState.MaxHP = InitHP;
             progress.HeroStats.Damage = InitDamage;
             progress.HeroStats.DamageRadius = InitDamageRadius;
-            
+
+            CreateActiveLevelTransfers(progress);
+
             progress.HeroState.ResetHP();
             
             return progress;
+        }
+
+        private void CreateActiveLevelTransfers(PlayerProgress progress)
+        {
+            foreach (LevelTransferData transfer in _staticData.ForLevel(InitLevel).LevelTransfers)
+            {
+                if (transfer.IsActive)
+                {
+                    progress.ActiveLevelTransfersData.TriggersId.Add(transfer.Id);
+                }
+            }
         }
     }
 }

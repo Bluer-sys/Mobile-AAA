@@ -15,6 +15,10 @@ namespace CodeBase.Infrastructure.Factory
         Task<LootPiece> CreateLoot();
         Task CreateSpawner(Vector3Data at, string spawnerId, MonsterTypeId monsterTypeId);
         Task CreateSaveTrigger(string triggerId, Vector3Data at, Vector3Data size, Vector3Data center);
+
+        Task CreateLevelTransferTrigger(string transferTriggerId, string transferTo, bool isActive, Vector3Data at,
+            Vector3Data size, Vector3Data center);
+
         void CleanUp();
         Task WarmUp();
     }

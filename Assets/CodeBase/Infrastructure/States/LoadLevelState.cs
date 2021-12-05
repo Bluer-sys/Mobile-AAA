@@ -27,7 +27,9 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
 
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IPersistentProgressService progressService, IStaticDataService staticData, IPersistentProgressWatchersService progressWatchersService, IGameFactory gameFactory, IUIFactory uiFactory)
+        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain,
+            IPersistentProgressService progressService, IStaticDataService staticData,
+            IPersistentProgressWatchersService progressWatchersService, IGameFactory gameFactory, IUIFactory uiFactory)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -42,12 +44,12 @@ namespace CodeBase.Infrastructure.States
         public void Enter(string sceneName)
         {
             _curtain.Show();
-            
+
             _progressWatchersService.CleanUp();
-            
+
             _gameFactory.CleanUp();
             _gameFactory.WarmUp();
-            
+
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -84,6 +86,7 @@ namespace CodeBase.Infrastructure.States
 
             await InitSpawners(levelData);
             await InitSaveTriggers(levelData);
+            await InitLevelTransferTriggers(levelData);
             await InitLoot();
 
             GameObject hero = await InitHero(levelData);
@@ -108,6 +111,7 @@ namespace CodeBase.Infrastructure.States
                     loadedLoot.transform.position = currentLootPiece.Position.AsUnityVector();
                     loadedLoot.GetComponent<UniqueId>().Id = currentLootPiece.LootId;
                 }
+
                 lootPiecesOnLevel.LootsPiecesDatas.Clear();
             }
         }
@@ -124,14 +128,24 @@ namespace CodeBase.Infrastructure.States
         {
             foreach (SaveTriggerData triggerData in levelData.SaveTriggers)
             {
-               await _gameFactory.CreateSaveTrigger(triggerData.Id, triggerData.Position, triggerData.Size, triggerData.Center);
+                await _gameFactory.CreateSaveTrigger(triggerData.Id, triggerData.Position, triggerData.Size,
+                    triggerData.Center);
+            }
+        }
+
+        private async Task InitLevelTransferTriggers(LevelStaticData levelData)
+        {
+            foreach (LevelTransferData levelTransfer in levelData.LevelTransfers)
+            {
+                await _gameFactory.CreateLevelTransferTrigger(levelTransfer.Id, levelTransfer.TransferTo, 
+                    levelTransfer.IsActive, levelTransfer.Position, levelTransfer.Size, levelTransfer.Center);
             }
         }
 
         private async Task InitHud(GameObject hero)
         {
             GameObject hud = await _gameFactory.CreateHud();
-            
+
             hud.GetComponentInChildren<ActorUI>()
                 .ConstructHealth(hero.GetComponent<HeroHealth>());
         }

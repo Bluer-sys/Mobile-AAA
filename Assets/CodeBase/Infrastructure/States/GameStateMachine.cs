@@ -20,7 +20,7 @@ namespace CodeBase.Infrastructure.States
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, _sceneLoader, services),
-                [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IPersistentProgressService>(), services.Single<ISaveLoadService>()),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IPersistentProgressService>(), services.Single<ISaveLoadService>(), services.Single<IStaticDataService>()),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, _sceneLoader, curtain, services.Single<IPersistentProgressService>(), services.Single<IStaticDataService>(), services.Single<IPersistentProgressWatchersService>(), services.Single<IGameFactory>(), services.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };

@@ -49,6 +49,10 @@ MonoBehaviour:
     m_Address: UIRoot
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0618eb42b38249a4a8146422f4ab9622
+    m_Address: LevelTransferTrigger
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a1fc61547cd5d844a9d22f1a296cbb06, type: 2}
   m_SchemaSet:

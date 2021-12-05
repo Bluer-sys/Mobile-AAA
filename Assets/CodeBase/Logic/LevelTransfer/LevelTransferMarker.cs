@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 
-namespace CodeBase.Logic.SaveTriggers
+namespace CodeBase.Logic.LevelTransfer
 {
-    [RequireComponent(typeof(Collider))]
-    public class SaveMarker : MonoBehaviour
+    [RequireComponent(typeof(BoxCollider))]
+    public class LevelTransferMarker : MonoBehaviour
     {
         public BoxCollider Collider;
+        
+        public string TransferTo;
+        public bool IsActive;
 
         private void Awake()
         {
@@ -17,7 +21,7 @@ namespace CodeBase.Logic.SaveTriggers
             if(Collider == null)
                 return;
             
-            Gizmos.color = new Color32(30, 200, 30, 130);
+            Gizmos.color = Color.yellow;
             Gizmos.DrawCube(transform.position + Collider.center, Collider.size);
         }
     }

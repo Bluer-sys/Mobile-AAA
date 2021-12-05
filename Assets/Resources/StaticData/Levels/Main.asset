@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec4b89c2903144c790a14746a192f5b1, type: 3}
-  m_Name: Graveyard
+  m_Name: Main
   m_EditorClassIdentifier: 
   LevelKey: Main
   EnemySpawners:
@@ -34,29 +34,45 @@ MonoBehaviour:
       Z: -14.010002
   SaveTriggers:
   - Id: Main_c117f7eb-6001-4b18-b7c6-faf6e9e9e176
-    Center:
-      X: 0
-      Y: 0
-      Z: 0
-    Size:
-      X: 1
-      Y: 1
-      Z: 1
     Position:
       X: 2.9469013
       Y: 1.1355743
       Z: -8.771637
-  - Id: Main_29d72ae1-c0c5-441d-a768-06adda00568c
-    Center:
-      X: 0
-      Y: 0
-      Z: 0
     Size:
       X: 1
       Y: 1
       Z: 1
+    Center:
+      X: 0
+      Y: 0
+      Z: 0
+  - Id: Main_29d72ae1-c0c5-441d-a768-06adda00568c
     Position:
       X: 9.147902
       Y: 1.8215752
       Z: 4.2883625
+    Size:
+      X: 1
+      Y: 1
+      Z: 1
+    Center:
+      X: 0
+      Y: 0
+      Z: 0
+  LevelTransfers:
+  - Id: Main_99ad3646-2e94-42af-a36f-7b3237a3eacd
+    TransferTo: Dungeon
+    IsActive: 0
+    Position:
+      X: -2.6000001
+      Y: 1
+      Z: -6.9800034
+    Size:
+      X: 1
+      Y: 1
+      Z: 1
+    Center:
+      X: 0
+      Y: 0
+      Z: 0
   HeroInitialPosition: {x: 5.22, y: 1.719, z: -13.31}

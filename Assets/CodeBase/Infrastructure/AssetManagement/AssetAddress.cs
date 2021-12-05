@@ -8,5 +8,6 @@
         public const string Spawner = "SpawnPoint";
         public const string SaveTrigger = "SaveTrigger";
         public const string UIRoot = "UIRoot";
+        public const string LevelTransferTrigger = "LevelTransferTrigger";
     }
 }
