@@ -49,6 +49,9 @@ namespace CodeBase.Infrastructure.AssetManagement
         public Task<GameObject> Instantiate(string address, Vector3 at) =>
             Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
 
+        public Task<GameObject> Instantiate(string address, Transform under) =>
+            Addressables.InstantiateAsync(address, under).Task;
+        
         public void CleanUp()
         {
             foreach (List<AsyncOperationHandle> cachedHandles in _handles.Values)

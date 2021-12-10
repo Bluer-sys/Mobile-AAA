@@ -9,5 +9,7 @@
         public const string SaveTrigger = "SaveTrigger";
         public const string UIRoot = "UIRoot";
         public const string LevelTransferTrigger = "LevelTransferTrigger";
+        public const string IAPProducts = "products";
+        public const string ShopItem = "ShopItem";
     }
 }

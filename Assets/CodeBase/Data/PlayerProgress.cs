@@ -9,6 +9,7 @@ namespace CodeBase.Data
         public WorldData WorldData;
         public Stats HeroStats;
         public KillData KillData;
+        public PurchaseData PurchaseData;
         public ActivatedSaveTriggersData ActivatedSaveTriggersData;
         public ActiveLevelTransfersData ActiveLevelTransfersData;
 
@@ -18,6 +19,7 @@ namespace CodeBase.Data
             HeroState = new State();
             HeroStats = new Stats();
             KillData = new KillData();
+            PurchaseData = new PurchaseData();
             ActivatedSaveTriggersData = new ActivatedSaveTriggersData();
             ActiveLevelTransfersData = new ActiveLevelTransfersData();
         }

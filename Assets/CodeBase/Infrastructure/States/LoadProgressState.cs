@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
-using CodeBase.StaticData;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -37,7 +35,6 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            
         }
 
         private void LoadProgressOrInitNew()

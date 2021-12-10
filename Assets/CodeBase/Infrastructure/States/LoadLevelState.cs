@@ -64,7 +64,7 @@ namespace CodeBase.Infrastructure.States
             await InitGameWorld();
             InformProgressReaders();
 
-            _gameStateMachine.Enter<GameLoopState>();
+            _gameStateMachine.Enter<LoadIAPState>();
         }
 
         private void InformProgressReaders()
