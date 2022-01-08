@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28556e3017564bd48a94637d1ab1e1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
+  Id: Loot_90b3ee20-fe33-4df3-abba-a687216f3961
 --- !u!1001 &5236617418369292326
 PrefabInstance:
   m_ObjectHideFlags: 0

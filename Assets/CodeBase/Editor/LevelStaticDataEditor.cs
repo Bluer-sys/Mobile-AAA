@@ -3,6 +3,7 @@ using CodeBase.Data;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Logic.LevelTransfer;
+using CodeBase.Logic.Potions;
 using CodeBase.Logic.SaveTriggers;
 using CodeBase.StaticData;
 using UnityEditor;
@@ -27,7 +28,8 @@ namespace CodeBase.Editor
                 CollectEnemySpawners(levelData);
                 CollectSaveTriggers(levelData);
                 CollectLevelTransfers(levelData);
-                
+                CollectHealthPotions(levelData);
+
                 UpdateSceneKey(levelData);
                 UpdateHeroInitialPosition(levelData);
                 
@@ -64,6 +66,16 @@ namespace CodeBase.Editor
             levelData.EnemySpawners = FindObjectsOfType<SpawnMarker>()
                 .Select(x =>
                     new EnemySpawnerData(x.GetComponent<UniqueId>().Id, x.MonsterTypeId, x.transform.position.AsVectorData()))
+                .ToList();
+        }
+
+        private void CollectHealthPotions(LevelStaticData levelData)
+        {
+            levelData.HealthPotions = FindObjectsOfType<HealthPotionMarker>()
+                .Select(x => new HealthPotionData(
+                    x.GetComponent<UniqueId>().Id,
+                    x.Healing,
+                    x.transform.position.AsVectorData()))
                 .ToList();
         }
 

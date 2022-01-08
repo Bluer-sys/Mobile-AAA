@@ -19,6 +19,7 @@ namespace CodeBase.Infrastructure.Factory
         Task CreateLevelTransferTrigger(string transferTriggerId, string transferTo, bool isActive, Vector3Data at,
             Vector3Data size, Vector3Data center);
 
+        Task CreateHealthPotion(string potionId, int healing, Vector3Data at);
         void CleanUp();
         Task WarmUp();
     }

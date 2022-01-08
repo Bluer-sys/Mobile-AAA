@@ -11,5 +11,6 @@
         public const string LevelTransferTrigger = "LevelTransferTrigger";
         public const string IAPProducts = "products";
         public const string ShopItem = "ShopItem";
+        public const string HealthPotion = "HealthPotion";
     }
 }

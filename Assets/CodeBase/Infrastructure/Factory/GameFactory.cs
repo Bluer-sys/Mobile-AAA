@@ -10,6 +10,7 @@ using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Logic.LevelTransfer;
+using CodeBase.Logic.Potions;
 using CodeBase.Logic.SaveTriggers;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
@@ -53,6 +54,7 @@ namespace CodeBase.Infrastructure.Factory
             await _assetProvider.Load<GameObject>(AssetAddress.Spawner);
             await _assetProvider.Load<GameObject>(AssetAddress.SaveTrigger);
             await _assetProvider.Load<GameObject>(AssetAddress.LevelTransferTrigger);
+            await _assetProvider.Load<GameObject>(AssetAddress.HealthPotion);
         }
 
         public async Task<GameObject> CreateHero(Vector3 initialPoint)
@@ -162,6 +164,16 @@ namespace CodeBase.Infrastructure.Factory
             collider.center = center.AsUnityVector();
             
             transferTrigger.gameObject.SetActive(false);
+        }
+
+        public async Task CreateHealthPotion(string potionId, int healing, Vector3Data at)
+        {
+            GameObject loadedPrefab = await _assetProvider.Load<GameObject>(AssetAddress.HealthPotion);
+
+            HealthPotion healthPotion = InstantiateRegistered(loadedPrefab, at.AsUnityVector())
+                .GetComponent<HealthPotion>();
+            
+            healthPotion.Construnct(potionId, healing);
         }
 
         private GameObject InstantiateRegistered(GameObject prefab)

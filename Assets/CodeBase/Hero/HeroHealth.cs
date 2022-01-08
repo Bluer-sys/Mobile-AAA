@@ -60,5 +60,13 @@ namespace CodeBase.Hero
             Current -= damage;
             _animator.PlayHit();
         }
+
+        public void AddHP(int hp)
+        {
+            Current += hp;
+
+            if (Current > Max)
+                Current = Max;
+        }
     }
 }

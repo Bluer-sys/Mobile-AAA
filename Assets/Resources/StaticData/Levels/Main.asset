@@ -36,7 +36,7 @@ MonoBehaviour:
   - Id: Main_c117f7eb-6001-4b18-b7c6-faf6e9e9e176
     Position:
       X: 2.9469013
-      Y: 1.1355743
+      Y: 0.89557266
       Z: -8.771637
     Size:
       X: 1
@@ -62,7 +62,7 @@ MonoBehaviour:
   LevelTransfers:
   - Id: Main_99ad3646-2e94-42af-a36f-7b3237a3eacd
     TransferTo: Dungeon
-    IsActive: 0
+    IsActive: 1
     Position:
       X: -2.6000001
       Y: 1
@@ -75,4 +75,11 @@ MonoBehaviour:
       X: 0
       Y: 0
       Z: 0
+  HealthPotions:
+  - Id: Main_56c774da-15a4-40e8-9ef5-229f8a7fc67b
+    Healing: 5
+    Position:
+      X: 5.75
+      Y: 0.66700006
+      Z: -10.08
   HeroInitialPosition: {x: 5.22, y: 1.719, z: -13.31}

@@ -12,6 +12,7 @@ namespace CodeBase.StaticData
         public List<EnemySpawnerData> EnemySpawners;
         public List<SaveTriggerData> SaveTriggers;
         public List<LevelTransferData> LevelTransfers;
+        public List<HealthPotionData> HealthPotions;
 
         public Vector3 HeroInitialPosition;
     }

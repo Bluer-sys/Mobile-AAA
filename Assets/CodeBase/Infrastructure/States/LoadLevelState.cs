@@ -87,6 +87,7 @@ namespace CodeBase.Infrastructure.States
             await InitSpawners(levelData);
             await InitSaveTriggers(levelData);
             await InitLevelTransferTriggers(levelData);
+            await InitHealthPotions(levelData);
             await InitLoot();
 
             GameObject hero = await InitHero(levelData);
@@ -139,6 +140,17 @@ namespace CodeBase.Infrastructure.States
             {
                 await _gameFactory.CreateLevelTransferTrigger(levelTransfer.Id, levelTransfer.TransferTo, 
                     levelTransfer.IsActive, levelTransfer.Position, levelTransfer.Size, levelTransfer.Center);
+            }
+        }
+
+        private async Task InitHealthPotions(LevelStaticData levelData)
+        {
+            foreach (HealthPotionData healthPotion in levelData.HealthPotions)
+            {
+                if (!_progressService.Progress.PickedPotionsData.PotionsId.Contains(healthPotion.Id))
+                {
+                    await _gameFactory.CreateHealthPotion(healthPotion.Id, healthPotion.Healing, healthPotion.Position);
+                }
             }
         }
 

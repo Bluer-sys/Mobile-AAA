@@ -12,6 +12,7 @@ namespace CodeBase.Data
         public PurchaseData PurchaseData;
         public ActivatedSaveTriggersData ActivatedSaveTriggersData;
         public ActiveLevelTransfersData ActiveLevelTransfersData;
+        public PickedPotionsData PickedPotionsData;
 
         public PlayerProgress(string initialLevel)
         {
@@ -22,6 +23,7 @@ namespace CodeBase.Data
             PurchaseData = new PurchaseData();
             ActivatedSaveTriggersData = new ActivatedSaveTriggersData();
             ActiveLevelTransfersData = new ActiveLevelTransfersData();
+            PickedPotionsData = new PickedPotionsData();
         }
     }
 }

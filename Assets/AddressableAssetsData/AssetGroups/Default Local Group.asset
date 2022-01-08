@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Address: iap_icon_strongPoison
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7cafb89b5a0f61f479d0a748962abbbc
+    m_Address: HealthPotion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a1fc61547cd5d844a9d22f1a296cbb06, type: 2}
   m_SchemaSet:
