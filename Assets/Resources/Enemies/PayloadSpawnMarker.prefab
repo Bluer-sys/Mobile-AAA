@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6599454229241203284
+--- !u!1 &2914513094041459228
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6634859716885662912}
-  - component: {fileID: 1954651674901538253}
-  - component: {fileID: 6124679001594404745}
+  - component: {fileID: 3455482823887756424}
+  - component: {fileID: 5018856213338671741}
+  - component: {fileID: 2817192377144037313}
   m_Layer: 0
-  m_Name: SpawnMarker
+  m_Name: PayloadSpawnMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6634859716885662912
+--- !u!4 &3455482823887756424
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6599454229241203284}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 2914513094041459228}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.226902, y: 50.913, z: -24.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1954651674901538253
+--- !u!114 &5018856213338671741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6599454229241203284}
+  m_GameObject: {fileID: 2914513094041459228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79816e13554049f9b1646a9c183e4c81, type: 3}
+  m_Script: {fileID: 11500000, guid: f83c9e5559ed474aad41bbeadba4d392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MonsterTypeId: 0
---- !u!114 &6124679001594404745
+--- !u!114 &2817192377144037313
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6599454229241203284}
+  m_GameObject: {fileID: 2914513094041459228}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28556e3017564bd48a94637d1ab1e1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: SpawnMarker_6481ddd9-6107-48b9-9a11-870fa0278b41
+  Id: Main_76fca079-f935-4634-b868-c87584f4c882

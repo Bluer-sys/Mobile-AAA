@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using CodeBase.Logic.EnemySpawners;
 using UnityEngine;
 
 namespace CodeBase.Logic.LevelTransfer
@@ -9,7 +11,8 @@ namespace CodeBase.Logic.LevelTransfer
         
         public string TransferTo;
         public bool IsActive;
-
+        public List<PayloadSpawnMarker> PayloadSpawnMarkers;
+        
         private void Awake()
         {
             Destroy(gameObject);

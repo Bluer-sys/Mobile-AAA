@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -17,21 +18,11 @@ namespace CodeBase.Logic.EnemySpawners
         private IGameFactory _factory;
         private EnemyDeath _enemyDeath;
 
+        public event Action<SpawnPoint> DeathHappened;
+
         public void Construct(IGameFactory factory)
         {
             _factory = factory;
-        }
-
-        public void LoadProgress(PlayerProgress progress)
-        {
-            if (progress.KillData.ClearedSpawners.Contains(Id))
-            {
-                _slain = true;
-            }
-            else
-            {
-                Spawn();
-            }
         }
 
         private async void Spawn()
@@ -44,10 +35,25 @@ namespace CodeBase.Logic.EnemySpawners
 
         private void Slay()
         {
+            DeathHappened?.Invoke(this);
+            
             if (_enemyDeath != null)
                 _enemyDeath.Happened -= Slay;
 
             _slain = true;
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            if (progress.KillData.ClearedSpawners.Contains(Id))
+            {
+                _slain = true;
+                DeathHappened?.Invoke(this);
+            }
+            else
+            {
+                Spawn();
+            }
         }
 
         public void SaveProgress(PlayerProgress progress)

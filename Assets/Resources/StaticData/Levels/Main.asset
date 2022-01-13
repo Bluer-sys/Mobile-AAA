@@ -14,18 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Main
   EnemySpawners:
-  - Id: Main_e5a9e205-5706-45e7-bc82-ddc4eb08d0f6
-    MonsterTypeId: 0
-    Position:
-      X: -4.16
-      Y: 0
-      Z: -14.010002
-  - Id: Main_7bc09f20-46f7-4d41-bf7b-7187df3f164c
-    MonsterTypeId: 10
-    Position:
-      X: -11.51
-      Y: 0
-      Z: -6.619999
   - Id: Main_aa10978b-d743-41ae-857d-e11343a8d193
     MonsterTypeId: 0
     Position:
@@ -48,9 +36,9 @@ MonoBehaviour:
       Z: 0
   - Id: Main_29d72ae1-c0c5-441d-a768-06adda00568c
     Position:
-      X: 9.147902
-      Y: 1.8215752
-      Z: 4.2883625
+      X: -10.113098
+      Y: 0.7485733
+      Z: 2.2783623
     Size:
       X: 1
       Y: 1
@@ -60,21 +48,32 @@ MonoBehaviour:
       Y: 0
       Z: 0
   LevelTransfers:
-  - Id: Main_99ad3646-2e94-42af-a36f-7b3237a3eacd
+  - Id: Main_64fa2799-9d83-4db4-a90c-8155eb258075
     TransferTo: Dungeon
-    IsActive: 1
-    Position:
-      X: -2.6000001
-      Y: 1
-      Z: -6.9800034
-    Size:
-      X: 1
-      Y: 1
-      Z: 1
+    IsActive: 0
     Center:
       X: 0
       Y: 0
       Z: 0
+    Size:
+      X: 1
+      Y: 1
+      Z: 1
+    Position:
+      X: -2.6000001
+      Y: 1
+      Z: -6.9800034
+    Rotation:
+      X: -0
+      Y: 90
+      Z: -0
+    PayloadSpawnMarkerDatas:
+    - Id: Main_76fca079-f935-4634-b868-c87584f4c882
+      Position:
+        X: 4.6269016
+        Y: 0.7885742
+        Z: -17.661636
+      MonsterTypeId: 0
   HealthPotions:
   - Id: Main_56c774da-15a4-40e8-9ef5-229f8a7fc67b
     Healing: 5

@@ -139,7 +139,8 @@ namespace CodeBase.Infrastructure.States
             foreach (LevelTransferData levelTransfer in levelData.LevelTransfers)
             {
                 await _gameFactory.CreateLevelTransferTrigger(levelTransfer.Id, levelTransfer.TransferTo, 
-                    levelTransfer.IsActive, levelTransfer.Position, levelTransfer.Size, levelTransfer.Center);
+                    levelTransfer.IsActive, levelTransfer.Position, levelTransfer.Size, levelTransfer.Center, levelTransfer.Rotation, 
+                    levelTransfer.PayloadSpawnMarkerDatas);
             }
         }
 

@@ -46,7 +46,10 @@ namespace CodeBase.Editor
                     x.IsActive,
                     x.transform.position.AsVectorData(),
                     x.GetComponent<BoxCollider>().size.AsVectorData(),
-                    x.GetComponent<BoxCollider>().center.AsVectorData()))
+                    x.GetComponent<BoxCollider>().center.AsVectorData(),
+                    new Vector3(x.transform.eulerAngles.x, x.transform.eulerAngles.y, x.transform.eulerAngles.z).AsVectorData(),
+                    x.PayloadSpawnMarkers.Select(y => new PayloadSpawnMarkerData(y.GetComponent<UniqueId>().Id, y.transform.position.AsVectorData(), y.MonsterTypeId))
+                        .ToList()))
                 .ToList();
         }
 

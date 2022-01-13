@@ -32,12 +32,6 @@ MonoBehaviour:
       X: -12.039999
       Y: 0.0000038146973
       Z: -7.029999
-  - Id: Main_e5a9e205-5706-45e7-bc82-ddc4eb08d0f6
-    MonsterTypeId: 0
-    Position:
-      X: 2.04
-      Y: 0.0000023841858
-      Z: 9.37
   - Id: Dungeon_43a68b39-df37-4650-90a9-faf75accc9ca
     MonsterTypeId: 0
     Position:
@@ -54,7 +48,7 @@ MonoBehaviour:
   - Id: Dungeon_711604c6-8612-4f6f-8969-efc8d0bcb627
     Position:
       X: 12.027
-      Y: 1.117
+      Y: 1.1170006
       Z: 3.363903
     Size:
       X: 3.39
@@ -64,5 +58,26 @@ MonoBehaviour:
       X: 0
       Y: 0
       Z: 0
-  LevelTransfers: []
+  LevelTransfers:
+  - Id: Dungeon_cb6c2969-7c48-493d-803e-3083c9ad216e
+    TransferTo: Main
+    IsActive: 1
+    Center:
+      X: 0
+      Y: 0
+      Z: 0
+    Size:
+      X: 1
+      Y: 1
+      Z: 1
+    Position:
+      X: -12.732
+      Y: 0.954
+      Z: -13.23
+    Rotation:
+      X: 0
+      Y: 270
+      Z: 0
+    PayloadSpawnMarkerDatas: []
+  HealthPotions: []
   HeroInitialPosition: {x: 5.22, y: 1.719, z: -13.31}

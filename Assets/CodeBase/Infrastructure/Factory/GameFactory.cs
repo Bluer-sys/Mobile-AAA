@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Enemy;
@@ -120,7 +121,7 @@ namespace CodeBase.Infrastructure.Factory
             return lootPiece;
         }
 
-        public async Task CreateSpawner(Vector3Data at, string spawnerId, MonsterTypeId monsterTypeId)
+        public async Task<SpawnPoint> CreateSpawner(Vector3Data at, string spawnerId, MonsterTypeId monsterTypeId)
         {
             GameObject loadedPrefab = await _assetProvider.Load<GameObject>(AssetAddress.Spawner);
 
@@ -130,6 +131,8 @@ namespace CodeBase.Infrastructure.Factory
             spawner.Construct(this);
             spawner.Id = spawnerId;
             spawner.MonsterTypeId = monsterTypeId;
+
+            return spawner;
         }
 
         public async Task CreateSaveTrigger(string saveTriggerId, Vector3Data at, Vector3Data size, Vector3Data center)
@@ -147,23 +150,31 @@ namespace CodeBase.Infrastructure.Factory
             collider.center = center.AsUnityVector();
         }
 
-        public async Task CreateLevelTransferTrigger(string transferTriggerId, string transferTo, bool isActive, Vector3Data at, Vector3Data size, Vector3Data center)
+        public async Task CreateLevelTransferTrigger(string transferTriggerId, string transferTo, bool isActive,
+            Vector3Data at, Vector3Data size, Vector3Data center, Vector3Data rotation, List<PayloadSpawnMarkerData> spawnMarkerData)
         {
             GameObject loadedPrefab = await _assetProvider.Load<GameObject>(AssetAddress.LevelTransferTrigger);
 
             LevelTransferTrigger transferTrigger = InstantiateRegistered(loadedPrefab, at.AsUnityVector())
                 .GetComponent<LevelTransferTrigger>();
 
-            transferTrigger.Construct(_stateMachine);
+            transferTrigger.Construct(_stateMachine, _saveLoadService);
             transferTrigger.Id = transferTriggerId;
             transferTrigger.TransferTo = transferTo;
+            transferTrigger.transform.rotation = Quaternion.Euler(rotation.X, rotation.Y, rotation.Z);
             transferTrigger.IsActive = isActive;
+            transferTrigger.PayloadSpawnMarkersCount = spawnMarkerData.Count;
 
             BoxCollider collider = transferTrigger.GetComponent<BoxCollider>();
             collider.size = size.AsUnityVector();
             collider.center = center.AsUnityVector();
             
-            transferTrigger.gameObject.SetActive(false);
+            await CreatePayloadSpawners(spawnMarkerData, transferTrigger);
+            
+            if(spawnMarkerData.Count != 0)
+                transferTrigger.gameObject.SetActive(false);
+            else
+                transferTrigger.gameObject.SetActive(isActive);
         }
 
         public async Task CreateHealthPotion(string potionId, int healing, Vector3Data at)
@@ -172,8 +183,21 @@ namespace CodeBase.Infrastructure.Factory
 
             HealthPotion healthPotion = InstantiateRegistered(loadedPrefab, at.AsUnityVector())
                 .GetComponent<HealthPotion>();
-            
+
             healthPotion.Construnct(potionId, healing);
+        }
+
+        private async Task CreatePayloadSpawners(List<PayloadSpawnMarkerData> spawnMarkerDatas, LevelTransferTrigger transferTrigger)
+        {
+            foreach (PayloadSpawnMarkerData payloadMarkerData in spawnMarkerDatas)
+            {
+                SpawnPoint payloadSpawner = await CreateSpawner(
+                    payloadMarkerData.Position,
+                    payloadMarkerData.Id,
+                    payloadMarkerData.MonsterTypeId);
+
+                payloadSpawner.DeathHappened += transferTrigger.TryActivate;
+            }
         }
 
         private GameObject InstantiateRegistered(GameObject prefab)
